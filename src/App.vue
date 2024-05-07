@@ -41,6 +41,7 @@ import animationData from './assets/smartgridNoTitle.json'
 
 .subtitle {
   font-family: 'Rhetorik';
+  color: #64D8BF;
 }
 
 .button {
