@@ -3,27 +3,28 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import lottie from 'lottie-web';
-import type { AnimationItem } from 'lottie-web';
-
+import { onMounted, ref } from 'vue'
+import lottie from 'lottie-web'
+import type { AnimationItem } from 'lottie-web'
 
 const props = defineProps<{
-  animationData: Object;
-}>();
+  animationData: Object
+}>()
 
-const lottieContainer = ref<HTMLElement | null>(null);
+const lottieContainer = ref<HTMLElement | null>(null)
 
-onMounted(() => 
-  (lottieContainer.value && props.animationData) && 
+onMounted(
+  () =>
+    lottieContainer.value &&
+    props.animationData &&
     lottie.loadAnimation({
       container: lottieContainer.value,
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      animationData: props.animationData,
+      animationData: props.animationData
     })
-);
+)
 </script>
 
 <style scoped lang="scss">
@@ -47,7 +48,8 @@ onMounted(() =>
   width: 1920px;
   height: 1080px;
   z-index: -1; /* Ensure the animation stays in the background */
-  background-image: url('@/assets/SmartEnergy_BG.svg');  background-size: cover;
+  background-image: url('@/assets/SmartEnergy_BG.svg');
+  background-size: cover;
   background-position: center;
 }
 </style>
