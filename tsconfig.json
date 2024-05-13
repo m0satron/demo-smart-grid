@@ -1,4 +1,13 @@
 {
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist"
+  },
   "files": [],
   "references": [
     {
@@ -7,5 +16,6 @@
     {
       "path": "./tsconfig.app.json"
     }
-  ]
+  ],
+  "include": ["src/**/*", "backend/**/*"]
 }
