@@ -40,12 +40,14 @@ import {
   FSlideTransition
 } from 'fari-component-library'
 import AnimationContainer from './components/AnimationContainer.vue'
-import animationData from './assets/smartgridNoTitle.json'
+import animationData from './assets/smartgridNoTitle24fps.json'
 import { useDataStore } from './stores/dataStore'
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 
 const showCard = ref(false)
+
+// const Animation = () => import('./assets/smartgridNoTitle24fps.json');
 
 const { data, loading, error, locale } = storeToRefs(useDataStore())
 const { getData, setLocale } = useDataStore()
