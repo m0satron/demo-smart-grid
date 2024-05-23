@@ -15,11 +15,12 @@ const lottieContainer = ref<HTMLElement | null>(null)
 function init({ container, animationData }: { container: HTMLElement; animationData: Object }) {
   lottie.loadAnimation({
     container,
-    renderer: 'svg',
+    renderer: 'canvas',
     loop: true,
     autoplay: true,
     animationData
   })
+
 }
 
 onMounted(() => {
