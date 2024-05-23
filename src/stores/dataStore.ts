@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-type Locale = 'en'  | 'fr-FR' | 'nl'
+type Locale = 'en' | 'fr-FR' | 'nl'
 
 interface Data {
   logo: string
@@ -49,7 +49,7 @@ export const useDataStore = defineStore('data', {
           throw new Error('Network response was not ok')
         }
 
-        parsed.forEach((e: {[k: string]: string }) => {
+        parsed.forEach((e: { [k: string]: string }) => {
           console.log(e)
           const { research_head, research_lead, logo, locale, explanation_short } = e
           if (logo) this.data.logo = logo

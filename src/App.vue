@@ -40,7 +40,7 @@ import {
   FSlideTransition
 } from 'fari-component-library'
 import AnimationContainer from './components/AnimationContainer.vue'
-import animationData from './assets/smartgridNoTitle24fps.json'
+import animationData from './assets/smartgridNoTitle24fpsRedux.json'
 import { useDataStore } from './stores/dataStore'
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'

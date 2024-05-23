@@ -20,7 +20,6 @@ function init({ container, animationData }: { container: HTMLElement; animationD
     autoplay: true,
     animationData
   })
-
 }
 
 onMounted(() => {
@@ -30,7 +29,6 @@ onMounted(() => {
       animationData: props.animationData
     })
 })
-
 </script>
 
 <style scoped lang="scss">
