@@ -6,16 +6,15 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationDir": "./dist/types"
   },
   "files": [],
+  "exclude": ["node_modules", "./dist/**/*"],
   "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ],
-  "include": ["src/**/*", "backend/**/*"]
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }
