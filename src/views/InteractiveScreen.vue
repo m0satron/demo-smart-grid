@@ -124,7 +124,6 @@ watch([supply, demand], () => key.value++)
   height: 100%;
   width: 100%;
   position: relative;
-//   background-image: url('@/assets/SmartEnergy_BG.svg');
 }
 
 .toolbar {
