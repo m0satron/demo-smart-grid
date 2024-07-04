@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import 'fari-component-library/style'
 import ToolBar from '@/components/ToolBar.vue'
-import { ref, computed, VueElement, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import AnimationContainer from '@/components/AnimationContainer.vue'
 import SunIcon from '@/components/icons/SunIcon.vue'
 import MoonIcon from '@/components/icons/MoonIcon.vue'
@@ -59,8 +59,13 @@ import energyMedium from '@/assets/energyMedium.json'
 import energySlow from '@/assets/energySlow.json'
 import BackgroundDay from '@/components/BackgroundDay.vue'
 import BackgroundNight from '@/components/BackgroundNight.vue'
+import type { Ref  } from 'vue'
 
-const settings = ref<VueElement>()
+const settings = ref<{
+  temperature: number;
+  dayTime: boolean;
+  weather: 'sunny' | 'cloudy' | 'overcast';
+}>()
 
 
 const weatherIcon = computed(() => {
@@ -74,6 +79,8 @@ const weatherIcon = computed(() => {
 )
 
 const supply = computed(() => {
+  if(!settings.value) return 0;
+
   const weatherValues = {
     sunny: 98,
     overcast: 65,
@@ -84,10 +91,11 @@ const supply = computed(() => {
     true: 100,
     false: 4
   }
-  return (weatherValues[settings.value?.weather] * dayTimeValues[`${settings.value?.dayTime}`]) / 10
+  return (weatherValues[settings.value.weather] * dayTimeValues[`${settings.value.dayTime}`]) / 10
 })
 
 const demand = computed(() => {
+  if(!settings.value) return 0;
   const weatherValues = {
     sunny: 100,
     overcast: 70,

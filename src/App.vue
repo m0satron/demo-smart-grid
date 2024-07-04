@@ -9,7 +9,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { StartScreen, InteractiveScreen } from './views/index'
+
+import StartScreen from '@/views/StartScreen.vue';
+import InteractiveScreen from '@/views/InteractiveScreen.vue';
 
 const startScreenVisible = ref(true)
 const transitionName = ref('slide-left')

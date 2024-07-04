@@ -9,9 +9,17 @@
     "outDir": "./dist",
     "resolveJsonModule": true,
     "declaration": true,
-    "declarationDir": "./dist/types"
+    "declarationDir": "./dist/types",
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "types": ["vite/client", "node"],
+    "paths": {
+        "@/*": ["src/*"]
+    },
+
   },
   "files": [],
+  "include": ["svg.d.ts", "src/**/*.ts", "src/.vue"],
   "exclude": ["node_modules", "./dist/**/*"],
   "references": [
     { "path": "./tsconfig.app.json" },

@@ -1,8 +1,10 @@
 {
+
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "./backend",
-    "outDir": "./dist/backend"
+    "outDir": "./dist/backend",
+    "composite": true,
   },
   "include": ["backend/**/*", "types.d.ts"],
   "exclude": ["node_modules"]

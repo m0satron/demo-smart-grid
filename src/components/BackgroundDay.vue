@@ -1,6 +1,10 @@
 <template>
-<img src="../assets/SmartEnergy_BG.svg" alt="Smart Energy Logo" class="image-container" />
+<img :src="SmartEnergy_BG" alt="Day" class="image-container" />
 </template>
+
+<script setup lang="ts">
+import SmartEnergy_BG from '../assets/SmartEnergy_BG.svg?url'
+</script>
 
 <style scoped lang="scss">
 .image-container {
