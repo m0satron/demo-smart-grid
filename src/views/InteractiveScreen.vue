@@ -35,7 +35,7 @@
       </template>
 
     </ToolBar>
-    <AnimationContainer :animation-data="animationData" :key="key" :dark="!settings?.dayTime" class="animation"/>
+    <AnimationContainer :animation-data="animationData" :dark="!settings?.dayTime" class="animation"/>
         <Transition name="fade" mode="in-out">
       <component :is="!settings?.dayTime ? BackgroundNight : BackgroundDay" />
     </Transition>
@@ -59,13 +59,13 @@ import energyMedium from '@/assets/energyAgentMedium24fps.json'
 import energySlow from '@/assets/energyAgentSlow24fps.json'
 import BackgroundDay from '@/components/BackgroundDay.vue'
 import BackgroundNight from '@/components/BackgroundNight.vue'
-import type { Ref  } from 'vue'
 
 const settings = ref<{
   temperature: number;
   dayTime: boolean;
   weather: 'sunny' | 'cloudy' | 'overcast';
 }>()
+
 
 
 const weatherIcon = computed(() => {
@@ -116,12 +116,10 @@ const demand = computed(() => {
 
 const animationData = computed(() => {
     if(supply.value > demand.value) return energyFast
-    else if(supply.value < demand.value) return energySlow
-    else return energyMedium
+    if(supply.value < demand.value) return energySlow
+    return energyMedium
 })
 
-const key = ref(0)
-watch([supply, demand], () => key.value++)
 </script>
 
 <style scoped lang="scss">
