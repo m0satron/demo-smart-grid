@@ -5,10 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import lottie from 'lottie-web'
-import BackgroundDay from './BackgroundDay.vue'
-import BackgroundNight from './BackgroundNight.vue'
+import { onMounted, ref, watch, onBeforeUnmount } from 'vue'
+import lottie, { AnimationItem } from 'lottie-web'
 
 const props = defineProps<{
   animationData: Object;
@@ -16,9 +14,13 @@ const props = defineProps<{
 }>()
 
 const lottieContainer = ref<HTMLElement | null>(null)
+let animationInstance: AnimationItem | null = null
 
 function init({ container, animationData }: { container: HTMLElement; animationData: Object }) {
-  lottie.loadAnimation({
+  if (animationInstance) {
+    animationInstance.destroy();
+  }
+  animationInstance = lottie.loadAnimation({
     container,
     renderer: 'canvas',
     loop: true,
@@ -28,24 +30,31 @@ function init({ container, animationData }: { container: HTMLElement; animationD
 }
 
 onMounted(() => {
-  if (lottieContainer.value && props.animationData)
+  if (lottieContainer.value && props.animationData) {
     init({
       container: lottieContainer.value,
       animationData: props.animationData
     })
+  }
 })
 
 watch(() => props.animationData, (newVal) => {
-  if (lottieContainer.value && newVal)
+  if (lottieContainer.value && newVal) {
     init({
       container: lottieContainer.value,
       animationData: newVal
     })
-}, { deep: true})
+  }
+}, { deep: true })
+
+onBeforeUnmount(() => {
+  if (animationInstance) {
+    animationInstance.destroy();
+  }
+})
 </script>
 
 <style scoped lang="scss">
-
 .animation-wrapper {
   position: absolute;
   width: 100%;
@@ -61,7 +70,7 @@ watch(() => props.animationData, (newVal) => {
   z-index: -1;
   background-size: cover;
   background-position: center;
-  will-change: transform, opacity; 
+  will-change: transform, opacity;
   transition: background-image 1s;
 }
 </style>
