@@ -9,8 +9,8 @@ import { onMounted, ref, watch, onBeforeUnmount } from 'vue'
 import lottie, { AnimationItem } from 'lottie-web'
 
 const props = defineProps<{
-  animationData: Object;
-  dark?: boolean;
+  animationData: Object
+  dark?: boolean
 }>()
 
 const lottieContainer = ref<HTMLElement | null>(null)
@@ -18,7 +18,7 @@ let animationInstance: AnimationItem | null = null
 
 function init({ container, animationData }: { container: HTMLElement; animationData: Object }) {
   if (animationInstance) {
-    animationInstance.destroy();
+    animationInstance.destroy()
   }
   animationInstance = lottie.loadAnimation({
     container,
@@ -38,18 +38,22 @@ onMounted(() => {
   }
 })
 
-watch(() => props.animationData, (newVal) => {
-  if (lottieContainer.value && newVal) {
-    init({
-      container: lottieContainer.value,
-      animationData: newVal
-    })
-  }
-}, { deep: true })
+watch(
+  () => props.animationData,
+  (newVal) => {
+    if (lottieContainer.value && newVal) {
+      init({
+        container: lottieContainer.value,
+        animationData: newVal
+      })
+    }
+  },
+  { deep: true }
+)
 
 onBeforeUnmount(() => {
   if (animationInstance) {
-    animationInstance.destroy();
+    animationInstance.destroy()
   }
 })
 </script>

@@ -137,23 +137,22 @@ const toggleCard = () => (showCard.value = !showCard.value)
 }
 
 .backdrop {
-    visibility: hidden;
-    opacity: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(0);
-    z-index: 1;
-    transition: all 100ms;
-  
-    &-active {
-      visibility: visible;
-      opacity: 1;
-      backdrop-filter: blur(2px);
-      transition: all 300ms;
-    }
-  }
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(0);
+  z-index: 1;
+  transition: all 100ms;
 
+  &-active {
+    visibility: visible;
+    opacity: 1;
+    backdrop-filter: blur(2px);
+    transition: all 300ms;
+  }
+}
 </style>

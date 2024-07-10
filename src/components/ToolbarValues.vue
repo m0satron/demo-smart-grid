@@ -1,6 +1,5 @@
 <template>
   <div class="center-toolbar">
-
     <div class="supply-demand">
       <span class="color-blue-light">
         Demand: <span class="color-white demand"> &nbsp;&nbsp;{{ $props.demand }} KWh </span></span
@@ -53,9 +52,9 @@ defineProps<{
   text-align: right;
 }
 
-.demand, .supply {
+.demand,
+.supply {
   position: absolute;
-  right: -6rem
+  right: -6rem;
 }
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-<img :src="SmartEnergy_BG" alt="Day" class="image-container" />
+  <img :src="SmartEnergy_BG" alt="Day" class="image-container" />
 </template>
 
 <script setup lang="ts">
@@ -16,5 +16,4 @@ import SmartEnergy_BG from '../assets/SmartEnergy_BG.svg?url'
   object-fit: cover;
   z-index: -2;
 }
-
 </style>

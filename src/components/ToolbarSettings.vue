@@ -8,7 +8,46 @@
       on-dark
       small
     >
-    <Transition name="slide-left">
+      <div class="weather-menu rounded-s">
+        <span class="font-weight-medium font-size-body"> Temperature </span>
+        <FSlider v-model="temperature" min="0" max="40" step="1" icon="temperature" />
+
+        <span class="font-weight-medium font-size-body"> Weather </span>
+        <div class="weather-selector">
+          <label class="button-container">
+            <div
+              class="weather-button"
+              :class="weather === 'sunny' ? 'bg-color-blue' : 'bg-color-blue-light'"
+            >
+              <SunOutline />
+              <input type="radio" v-model="weather" value="sunny" />
+            </div>
+            Sunny
+          </label>
+          <label class="button-container">
+            <div
+              class="weather-button"
+              :class="weather === 'cloudy' ? 'bg-color-blue' : 'bg-color-blue-light'"
+            >
+              <CloudOutline />
+              <input type="radio" v-model="weather" value="cloudy" />
+            </div>
+            Cloudy
+          </label>
+
+          <label class="button-container">
+            <div
+              class="weather-button"
+              :class="weather === 'overcast' ? 'bg-color-blue' : 'bg-color-blue-light'"
+            >
+              <PartCloud />
+              <input type="radio" v-model="weather" value="overcast" />
+            </div>
+            Cloud/Sun
+          </label>
+        </div>
+      </div>
+      <!-- <Transition name="slide-left">
       <div 
         v-if="settingsView === 'main'" 
         class="rounded-s main-menu"
@@ -73,8 +112,7 @@
           <span class="color-blue-light font-weight-medium"> Back </span>
         </div>
       </div>
-    </Transition>
-
+    </Transition> -->
     </FDropdown>
   </div>
 </template>
@@ -85,8 +123,8 @@ import { FDropdown, FSlider, FDivider, FSwitch } from 'fari-component-library'
 import SunOutline from '@/components/icons/SunOutline.vue'
 import CloudOutline from '@/components/icons/CloudOutline.vue'
 import PartCloud from '@/components/icons/PartCloud.vue'
-import ChevronLeft from '@/components/icons/ChevronLeft.vue'
-import ChevronRight from '@/components/icons/ChevronRight.vue'
+// import ChevronLeft from '@/components/icons/ChevronLeft.vue'
+// import ChevronRight from '@/components/icons/ChevronRight.vue'
 
 type Weather = 'sunny' | 'cloudy' | 'overcast'
 
@@ -94,7 +132,7 @@ const temperature = ref(21)
 const dayTime = ref(true)
 const weather = ref<Weather>('sunny')
 const settingsOpen = ref(false)
-const settingsView = ref<'main' | 'temperature'>('main')
+// const settingsView = ref<'main' | 'temperature'>('main')
 
 defineExpose({
   temperature,
@@ -130,19 +168,19 @@ defineExpose({
 }
 
 .weather-menu {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      width: 100%;
-      height: 230px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  // height: 230px;
 
-      .dropdown-text {
-        color: white;
-        font-size: 1.25rem;
-        font-weight: 500;
-      }
-    }
+  .dropdown-text {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+}
 
 .dropdown-item {
   border-radius: 12px;
@@ -203,9 +241,6 @@ defineExpose({
   font-size: 18px;
 }
 
-
-
-
 .slide-left-enter-active,
 .slide-left-leave-active {
   transition: all 0.25s ease-out;
@@ -226,8 +261,6 @@ defineExpose({
   transition: all 0.2s ease-out;
 }
 
-
-
 .slide-right-enter-active,
 .slide-right-leave-active {
   transition: all 0.25s ease-out;
@@ -247,5 +280,4 @@ defineExpose({
 .slide-right-leave-active {
   transition: all 0.2s ease-out;
 }
-
 </style>
