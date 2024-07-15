@@ -41,7 +41,7 @@ onMounted(() => {
 watch(
   () => props.animationData,
   (newVal, oldVal) => {
-    if(newVal === oldVal) return
+    if (newVal === oldVal) return
     if (lottieContainer.value && newVal) {
       init({
         container: lottieContainer.value,
@@ -49,13 +49,11 @@ watch(
       })
     }
   },
-  { deep: true }
+  { immediate: true }
 )
 
 onBeforeUnmount(() => {
-  if (animationInstance) {
-    animationInstance.destroy()
-  }
+  animationInstance && animationInstance.destroy()
 })
 </script>
 
