@@ -9,7 +9,7 @@ export function useCsvData() {
       const filePath = new URL(`../assets/data/${fileName}`, import.meta.url).href
       const response = await fetch(filePath)
       const csvText = await response.text()
-      
+
       parseCSV(csvText, columnsToExtract)
     } catch (error) {
       console.error(`Error loading CSV file ${fileName}:`, error)

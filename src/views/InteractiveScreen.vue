@@ -152,8 +152,8 @@ function updateParsedData(now: Date) {
 }
 
 function updateAnimationData(supply: number, demand: number) {
-  if(!supply || !demand) return;
-  
+  if (!supply || !demand) return
+
   animationKey.value += 1
   if (supply > demand) return energySlow
   if (supply < demand) return energyFast
@@ -165,9 +165,9 @@ function updateAnimationData(supply: number, demand: number) {
  * @param time - The current time (type Date)
  */
 function updateLocalValues(time: Date) {
-  const { supply = 0, demand = 0, temperature = 0 } = updateParsedData(time);
+  const { supply = 0, demand = 0, temperature = 0 } = updateParsedData(time)
 
-  [currentSupply.value, currentDemand.value, currentTemperature.value] = [
+  ;[currentSupply.value, currentDemand.value, currentTemperature.value] = [
     supply,
     demand,
     temperature
