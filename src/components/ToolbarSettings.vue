@@ -12,6 +12,53 @@
         <!-- <span class="font-weight-medium font-size-body"> Temperature </span> -->
         <!-- <FSlider v-model="temperature" min="0" max="40" step="1" icon="temperature" /> -->
 
+        <span class="font-weight-medium font-size-body"> Season </span>
+        <div class="season-selector">
+          <label class="button-container">
+            <div
+              class="weather-button"
+              :class="season === 'winter' ? 'bg-color-blue-light' : 'bg-color-primary'"
+            >
+              <span class="material-symbols-outlined">ac_unit</span>
+              <input type="radio" v-model="season" value="winter" />
+            </div>
+            Winter
+          </label>
+
+          <label class="button-container">
+            <div
+              class="weather-button"
+              :class="season === 'spring' ? 'bg-color-blue-light' : 'bg-color-primary'"
+            >
+              <span class="material-symbols-outlined">psychiatry</span>
+              <input type="radio" v-model="season" value="spring" />
+            </div>
+            Spring
+          </label>
+
+          <label class="button-container">
+            <div
+              class="weather-button"
+              :class="season === 'summer' ? 'bg-color-blue-light' : 'bg-color-primary'"
+            >
+              <span class="material-symbols-outlined">local_florist</span>
+              <input type="radio" v-model="season" value="summer" />
+            </div>
+            Summer
+          </label>
+
+          <label class="button-container">
+            <div
+              class="weather-button"
+              :class="season === 'autumn' ? 'bg-color-blue-light' : 'bg-color-primary'"
+            >
+              <span class="material-symbols-outlined">rainy</span>
+              <input type="radio" v-model="season" value="autumn" />
+            </div>
+            Autumn
+          </label>
+        </div>
+        <FDivider class="bg-color-blue-light my-sm" />
         <span class="font-weight-medium font-size-body"> Weather </span>
         <div class="weather-selector">
           <label class="button-container">
@@ -41,7 +88,7 @@
               :class="weather === 'overcast' ? 'bg-color-blue-light' : 'bg-color-primary'"
             >
               <PartCloud />
-              <input type="radio" v-model="weather" value="overcast" />
+              <input type="radio" v-model="weather" value="cloudy_sunny" />
             </div>
             Cloud/Sun
           </label>
@@ -127,17 +174,20 @@ import PartCloud from '@/components/icons/PartCloud.vue'
 // import ChevronRight from '@/components/icons/ChevronRight.vue'
 
 type Weather = 'sunny' | 'cloudy' | 'cloudy_sunny'
+type Season = 'autumn' | 'winter' | 'spring' | 'summer'
 
 const temperature = ref(21)
 const dayTime = ref(true)
 const weather = ref<Weather>('sunny')
 const settingsOpen = ref(false)
+const season = ref<Season>('autumn')
 // const settingsView = ref<'main' | 'temperature'>('main')
 
 defineExpose({
   temperature,
   dayTime,
-  weather
+  weather,
+  season
 })
 </script>
 
@@ -192,7 +242,8 @@ defineExpose({
   gap: 220px;
 }
 
-.weather-selector {
+.weather-selector,
+.season-selector {
   display: flex;
   justify-content: space-between;
   align-items: center;
