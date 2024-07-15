@@ -9,15 +9,15 @@
       small
     >
       <div class="weather-menu rounded-s">
-        <span class="font-weight-medium font-size-body"> Temperature </span>
-        <FSlider v-model="temperature" min="0" max="40" step="1" icon="temperature" />
+        <!-- <span class="font-weight-medium font-size-body"> Temperature </span> -->
+        <!-- <FSlider v-model="temperature" min="0" max="40" step="1" icon="temperature" /> -->
 
         <span class="font-weight-medium font-size-body"> Weather </span>
         <div class="weather-selector">
           <label class="button-container">
             <div
               class="weather-button"
-              :class="weather === 'sunny' ? 'bg-color-blue' : 'bg-color-blue-light'"
+              :class="weather === 'sunny' ? 'bg-color-blue-light' : 'bg-color-primary'"
             >
               <SunOutline />
               <input type="radio" v-model="weather" value="sunny" />
@@ -27,7 +27,7 @@
           <label class="button-container">
             <div
               class="weather-button"
-              :class="weather === 'cloudy' ? 'bg-color-blue' : 'bg-color-blue-light'"
+              :class="weather === 'cloudy' ? 'bg-color-blue-light' : 'bg-color-primary'"
             >
               <CloudOutline />
               <input type="radio" v-model="weather" value="cloudy" />
@@ -38,7 +38,7 @@
           <label class="button-container">
             <div
               class="weather-button"
-              :class="weather === 'overcast' ? 'bg-color-blue' : 'bg-color-blue-light'"
+              :class="weather === 'overcast' ? 'bg-color-blue-light' : 'bg-color-primary'"
             >
               <PartCloud />
               <input type="radio" v-model="weather" value="overcast" />
@@ -126,7 +126,7 @@ import PartCloud from '@/components/icons/PartCloud.vue'
 // import ChevronLeft from '@/components/icons/ChevronLeft.vue'
 // import ChevronRight from '@/components/icons/ChevronRight.vue'
 
-type Weather = 'sunny' | 'cloudy' | 'overcast'
+type Weather = 'sunny' | 'cloudy' | 'cloudy_sunny'
 
 const temperature = ref(21)
 const dayTime = ref(true)
