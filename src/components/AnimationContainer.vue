@@ -40,7 +40,8 @@ onMounted(() => {
 
 watch(
   () => props.animationData,
-  (newVal) => {
+  (newVal, oldVal) => {
+    if(newVal === oldVal) return
     if (lottieContainer.value && newVal) {
       init({
         container: lottieContainer.value,
