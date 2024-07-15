@@ -36,6 +36,7 @@
     <AnimationContainer
       :animation-data="animationData"
       :dark="!settings?.dayTime"
+      :key="animationKey"
       class="animation"
     />
     <Transition name="fade" mode="in-out">
@@ -61,7 +62,7 @@ import energyMedium from '@/assets/energyAgentMedium24fpsv2.json'
 import energySlow from '@/assets/energyAgentSlow24fpsv2.json'
 import BackgroundDay from '@/components/BackgroundDay.vue'
 import BackgroundNight from '@/components/BackgroundNight.vue'
-import { useCsvData } from '@/composables/useCsvData';
+import { useCsvData } from '@/composables/useCsvData'
 
 const settings = ref<{
   temperature: number
@@ -84,44 +85,52 @@ const weatherIcon = computed(() => {
   return null
 })
 
-const currentTime = ref(new Date('2024-01-01T13:00:00'));
-const currentTemperature = ref(settings.value.temperature);
-const currentSupply = ref(0);
+const currentTime = ref(new Date('2024-01-01T13:00:00'))
+const currentTemperature = ref(settings.value.temperature)
+const currentSupply = ref(0)
 const currentDemand = ref(0)
-const supplyMoreThanDemand = ref(currentSupply.value > currentDemand.value);
-const animationData = ref(energyMedium)
+const supplyMoreThanDemand = ref<boolean | null>(null)
+const animationKey = ref(0)
+const animationData = ref(energySlow)
 
-const { parsedData, loadCSVFile } = useCsvData();
+const { parsedData, loadCSVFile } = useCsvData()
 
-const file = computed(() => 
-  `simulation_results_${settings.value.season || 'autumn'}_${settings.value.weather || 'sunny'}.csv`
-);
+const file = computed(
+  () =>
+    `simulation_results_${settings.value.season || 'autumn'}_${settings.value.weather || 'sunny'}.csv`
+)
 
-const columnsToExtract = ['time', 'global_demand', 'local_supply', 'temperature'];
+const columnsToExtract = ['time', 'global_demand', 'local_supply', 'temperature']
 
-onMounted(() => loadCSVFile(file.value, columnsToExtract));
+watch(
+  file,
+  async (newFile) => {
+    await loadCSVFile(newFile, columnsToExtract)
+    updateLocalValues(currentTime.value)
+  },
+  { immediate: true }
+)
 
-const interval = setInterval(updateTime, 2083);
-onBeforeUnmount(() => clearInterval(interval));
+const interval = setInterval(updateTime, 2083)
+onBeforeUnmount(() => clearInterval(interval))
 
 watch(currentTime, (newTime) => {
-  const { supply, demand, temperature } = updateParsedData(newTime);
-  [currentSupply.value, currentDemand.value, currentTemperature.value] = [supply, demand, temperature];
+  const { supply, demand } = updateLocalValues(newTime)
 
-  if(supply > demand === supplyMoreThanDemand.value) return;
+  if (supply > demand === supplyMoreThanDemand.value) return
+  supplyMoreThanDemand.value = supply > demand
 
-  supplyMoreThanDemand.value = supply > demand;
-  animationData.value = updateAnimationData(supply, demand);
-});
+  animationData.value = updateAnimationData(supply, demand)
+})
 
 function updateTime() {
   const now = new Date(currentTime.value.getTime() + 10 * 60 * 1000) // 10 minutes
-  
+
   currentTime.value = now
 
-  if (now.getHours() === 0 && now.getMinutes() === 0) 
+  if (now.getHours() === 0 && now.getMinutes() === 0)
     currentTime.value = new Date('2024-01-01T00:00:00')
-  
+
   const hours = now.getHours()
   settings.value.dayTime = hours >= 6 && hours < 18
 }
@@ -129,7 +138,7 @@ function updateTime() {
 function updateParsedData(now: Date) {
   const time = now.toLocaleTimeString('fr-BE', { hour: '2-digit', minute: '2-digit' })
 
-  const rowData = parsedData.value.find(row => row.time === time)
+  const rowData = parsedData.value.find((row) => row.time === time)
 
   const supply = Number(parseFloat(rowData?.local_supply).toFixed(3)) ?? 0
   const demand = Number(parseFloat(rowData?.global_demand).toFixed(3)) ?? 0
@@ -138,16 +147,33 @@ function updateParsedData(now: Date) {
   return {
     supply,
     demand,
-    temperature,
+    temperature
   }
 }
 
-function updateAnimationData(supply:number, demand:number) {
-  if (supply > demand) return energyFast
-  if (supply < demand) return energySlow
+function updateAnimationData(supply: number, demand: number) {
+  if(!supply || !demand) return;
+  
+  animationKey.value += 1
+  if (supply > demand) return energySlow
+  if (supply < demand) return energyFast
   return energyMedium
 }
 
+/**
+ * This function updates currentSupply, currentDemand and currentTemperature.
+ * @param time - The current time (type Date)
+ */
+function updateLocalValues(time: Date) {
+  const { supply = 0, demand = 0, temperature = 0 } = updateParsedData(time);
+
+  [currentSupply.value, currentDemand.value, currentTemperature.value] = [
+    supply,
+    demand,
+    temperature
+  ]
+  return { supply, demand, temperature }
+}
 </script>
 
 <style scoped lang="scss">
